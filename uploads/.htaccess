@@ -1,0 +1,24 @@
+# Deny all direct access to uploaded documents
+# All documents must be served through document_stream.php
+
+<IfModule mod_authz_core.c>
+  Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+  Order deny,allow
+  Deny from all
+</IfModule>
+
+# Disable directory listing
+Options -Indexes
+
+# Prevent execution of PHP or scripts inside this folder
+<FilesMatch "\.(php|php3|php4|php5|php7|phtml|pl|py|cgi|sh)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order deny,allow
+    Deny from all
+  </IfModule>
+</FilesMatch>

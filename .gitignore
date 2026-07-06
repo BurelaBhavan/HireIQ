@@ -1,0 +1,23 @@
+# Exclude environment files containing API keys and secrets
+.env
+.env.local
+.env.*
+
+# Exclude uploaded candidate/admin documents to prevent leaking confidential client/user uploads
+uploads/*
+!uploads/.htaccess
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# IDE and Editor configurations
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

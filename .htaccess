@@ -1,0 +1,43 @@
+# AI Interview Assessment Platform — Apache Configuration
+
+# Disable directory browsing
+Options -Indexes
+
+# UTF-8 encoding
+AddDefaultCharset UTF-8
+
+# Follow symlinks
+Options +FollowSymLinks
+
+# ── Security headers ───────────────────────────────────────────
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(self), microphone=(self)"
+</IfModule>
+
+# ── Protect sensitive directories ─────────────────────────────
+<FilesMatch "\.(sql|log|env|md|json|lock)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Block direct access to config and includes
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Block direct access to config/ and includes/
+    RewriteRule ^config/      - [F,L]
+    RewriteRule ^includes/    - [F,L]
+    RewriteRule ^database/    - [F,L]
+</IfModule>
+
+# ── PHP settings ──────────────────────────────────────────────
+<IfModule mod_php.c>
+    php_flag display_errors Off
+    php_value upload_max_filesize 20M
+    php_value post_max_size 22M
+    php_value max_execution_time 60
+</IfModule>
