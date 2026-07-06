@@ -2,6 +2,7 @@
 .env
 .env.local
 .env.*
+!.env.example
 
 # Exclude uploaded candidate/admin documents to prevent leaking confidential client/user uploads
 uploads/*
